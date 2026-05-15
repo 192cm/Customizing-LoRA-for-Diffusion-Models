@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d9ecff"/>
+      <stop offset="100%" stop-color="#f6fbff"/>
+    </linearGradient>
+    <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5f7fb"/>
+      <stop offset="100%" stop-color="#e2e7ef"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#1f2937" flood-opacity="0.16"/>
+    </filter>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 20px Arial, sans-serif; fill: #4b5563; }
+      .label { font: 700 22px Arial, sans-serif; fill: #111827; }
+      .small { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .code { font: 500 19px "Courier New", monospace; fill: #111827; }
+      .caption { font: 600 24px Arial, sans-serif; fill: #0f172a; }
+      .muted { font: 400 16px Arial, sans-serif; fill: #6b7280; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="760" fill="#f8fafc"/>
+
+  <text x="70" y="72" class="title">Figure 2. Captioning Example</text>
+  <text x="70" y="108" class="subtitle">Image captioning converts each training image into a text prompt stored in metadata.csv.</text>
+
+  <g transform="translate(70 165)" filter="url(#shadow)">
+    <rect width="360" height="430" rx="18" fill="#ffffff"/>
+    <text x="28" y="44" class="label">Input Image</text>
+    <text x="28" y="74" class="small">real_custom_dataset/train</text>
+
+    <g transform="translate(28 104)">
+      <rect width="304" height="230" rx="12" fill="url(#sky)" stroke="#d1d5db"/>
+      <rect x="0" y="178" width="304" height="52" fill="url(#snow)"/>
+      <rect x="28" y="84" width="78" height="92" rx="4" fill="#9aa6b2"/>
+      <rect x="42" y="100" width="14" height="18" fill="#dbeafe"/>
+      <rect x="72" y="100" width="14" height="18" fill="#dbeafe"/>
+      <rect x="42" y="132" width="14" height="18" fill="#dbeafe"/>
+      <rect x="72" y="132" width="14" height="18" fill="#dbeafe"/>
+      <rect x="126" y="62" width="88" height="116" rx="4" fill="#c4a47c"/>
+      <rect x="141" y="82" width="15" height="19" fill="#eff6ff"/>
+      <rect x="184" y="82" width="15" height="19" fill="#eff6ff"/>
+      <rect x="141" y="118" width="15" height="19" fill="#eff6ff"/>
+      <rect x="184" y="118" width="15" height="19" fill="#eff6ff"/>
+      <rect x="232" y="108" width="44" height="38" rx="7" fill="#334155"/>
+      <rect x="238" y="116" width="32" height="10" fill="#93c5fd"/>
+      <circle cx="242" cy="151" r="7" fill="#111827"/>
+      <circle cx="268" cy="151" r="7" fill="#111827"/>
+      <path d="M20 194 C80 178, 143 180, 205 193 S278 212, 304 198" fill="none" stroke="#cbd5e1" stroke-width="13" stroke-linecap="round"/>
+      <path d="M20 202 C80 186, 143 188, 205 201 S278 220, 304 206" fill="none" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="62" cy="36" r="20" fill="#fbbf24" opacity="0.85"/>
+      <path d="M228 178 C232 148, 260 148, 265 178" fill="#64748b"/>
+      <rect x="244" y="127" width="5" height="52" fill="#475569"/>
+      <circle cx="246" cy="119" r="16" fill="#94a3b8"/>
+    </g>
+
+    <text x="28" y="374" class="code">DSC_1643.JPG</text>
+    <text x="28" y="404" class="muted">training image</text>
+  </g>
+
+  <g transform="translate(490 335)">
+    <path d="M0 0 H170" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+    <path d="M155 -16 L182 0 L155 16 Z" fill="#64748b"/>
+  </g>
+
+  <g transform="translate(650 230)" filter="url(#shadow)">
+    <rect width="300" height="300" rx="24" fill="#ffffff"/>
+    <circle cx="150" cy="105" r="52" fill="#e0f2fe" stroke="#38bdf8" stroke-width="4"/>
+    <path d="M119 105 H181 M150 74 V136" stroke="#0284c7" stroke-width="12" stroke-linecap="round"/>
+    <rect x="74" y="178" width="152" height="54" rx="13" fill="#0f172a"/>
+    <text x="150" y="212" text-anchor="middle" style="font:700 24px Arial,sans-serif; fill:#ffffff;">BLIP</text>
+    <text x="150" y="260" text-anchor="middle" class="small">Captioning Model</text>
+  </g>
+
+  <g transform="translate(990 335)">
+    <path d="M0 0 H170" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+    <path d="M155 -16 L182 0 L155 16 Z" fill="#64748b"/>
+  </g>
+
+  <g transform="translate(850 165)" filter="url(#shadow)">
+    <rect x="330" width="150" height="430" rx="18" fill="#ffffff"/>
+  </g>
+
+  <g transform="translate(1065 165)" filter="url(#shadow)">
+    <rect width="265" height="430" rx="18" fill="#ffffff"/>
+    <text x="28" y="44" class="label">Generated Caption</text>
+    <text x="28" y="82" class="caption">sks a truck driving</text>
+    <text x="28" y="114" class="caption">down a snow</text>
+    <text x="28" y="146" class="caption">covered street</text>
+
+    <rect x="28" y="194" width="209" height="174" rx="12" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="46" y="228" class="code">metadata.csv</text>
+    <line x1="46" y1="246" x2="218" y2="246" stroke="#cbd5e1"/>
+    <text x="46" y="282" class="muted">file_name</text>
+    <text x="46" y="313" class="code">DSC_1643.JPG</text>
+    <text x="46" y="347" class="muted">caption</text>
+    <text x="46" y="378" class="code">sks a truck...</text>
+  </g>
+
+  <g transform="translate(70 655)">
+    <rect width="1260" height="48" rx="12" fill="#e2e8f0"/>
+    <text x="24" y="31" class="small">Caption format: file_name, caption  |  Style token "sks" is prepended so LoRA can associate dataset-specific visual characteristics with the token.</text>
+  </g>
+</svg>

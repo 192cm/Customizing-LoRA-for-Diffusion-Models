@@ -90,7 +90,7 @@ DATASET_CONFIGS = [
         # 종이 공예(paper craft) 스타일 AI 생성 일러스트
         "name": "generated",
         "data_dir": "./data/generated_custom_dataset",
-        "prompt": "a street with buildings",
+        "prompt": "a house in a flower field",
         "style_token": "sks",
         "style_words": sorted([
             "paper cut art", "paper cut", "paper craft", "paper-cut", "papercut",
