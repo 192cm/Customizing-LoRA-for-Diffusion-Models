@@ -1,0 +1,3 @@
+experiment_type,dataset,prompt,lora_rank,lora_alpha,max_train_steps,output_dir,result_image
+rank,web_crawled,a building,8,4,2000,./lora_experiments/ablation/rank/rank8_alpha4,./lora_experiments/ablation/rank_comparison.png
+rank,web_crawled,a building,16,4,2000,./lora_experiments/ablation/rank/rank16_alpha4,./lora_experiments/ablation/rank_comparison.png

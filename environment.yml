@@ -1,0 +1,29 @@
+name: genai-assignment2
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - ipykernel
+  - ipython
+  - jupyter
+  - matplotlib
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu121
+      - accelerate==0.26.1
+      - bing-image-downloader==1.1.2
+      - datasets==2.16.1
+      - diffusers==0.26.0
+      - huggingface-hub==0.20.3
+      - icrawler==0.6.10
+      - invisible-watermark==0.2.0
+      - numpy==1.26.3
+      - opencv-python==4.9.0.80
+      - pandas==2.2.2
+      - peft==0.7.1
+      - pillow==10.2.0
+      - safetensors==0.4.2
+      - torch==2.1.2+cu121
+      - torchvision==0.16.2+cu121
+      - tqdm==4.66.1
+      - transformers==4.37.0
