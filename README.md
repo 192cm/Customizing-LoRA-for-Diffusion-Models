@@ -1,120 +1,96 @@
-# Customizing LoRA for Diffusion Models
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/PyTorch-2.1.2%20%2B%20CUDA%2012.1-EE4C2C?logo=pytorch&logoColor=white" alt="PyTorch">
-  <img src="https://img.shields.io/badge/Diffusers-0.26.0-yellow" alt="Diffusers">
-  <img src="https://img.shields.io/badge/LoRA-Stable%20Diffusion%20v1.5-7C3AED" alt="LoRA">
-</p>
+# 🎨 Customizing LoRA for Diffusion Models
 
-<p align="center">
-  Fine-tune Stable Diffusion v1.5 with LoRA adapters on small custom image datasets.<br>
-  Compare how dataset source and LoRA hyperparameters affect generated image quality.
-</p>
+**Stable Diffusion LoRA experiment suite** — fine-tunes Stable Diffusion v1.5 adapters on custom image datasets and compares dataset source, rank, and alpha effects.
 
----
+<br>
 
-## Results
+[![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![PyTorch](https://img.shields.io/badge/PyTorch-2.1.2%20%2B%20CUDA%2012.1-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/) [![Diffusers](https://img.shields.io/badge/Diffusers-0.26.0-FFCC4D?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/docs/diffusers/) [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Datasets%202.16.1-FFD21E?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/docs/datasets/) [![License](https://img.shields.io/badge/License-Not%20specified-lightgrey?style=flat-square)](#license)
 
-### Dataset Samples
+<br>
 
-![Dataset samples](report_assets/figure3_dataset_samples.png)
+[Features](#features) · [Quick Start](#quick-start) · [Usage](#usage) · [Architecture](#architecture) · [Experiment Results](#experiment-results) · [Dependencies](#dependencies) · [License](#license)
 
-### Before / After LoRA Fine-tuning
-
-| Web-crawled | Real Photos | AI-generated |
-|:-----------:|:-----------:|:------------:|
-| ![Web crawled](report_assets/web_crawled_before_after_labeled.png) | ![Real](report_assets/real_before_after_labeled.png) | ![Generated](report_assets/generated_before_after_labeled.png) |
-
-### Ablation Study
-
-| LoRA Rank | LoRA Alpha |
-|:---------:|:----------:|
-| ![Rank comparison](report_assets/rank_comparison_labeled.png) | ![Alpha comparison](report_assets/alpha_comparison_labeled.png) |
+</div>
 
 ---
 
-## Table of Contents
+## ✨ Features
 
-- [Features](#features)
-- [Quick Start](#quick-start)
-- [Repository Structure](#repository-structure)
-- [Dataset Format](#dataset-format)
-- [Training Configuration](#training-configuration)
-- [How to Run](#how-to-run)
-- [Outputs](#outputs)
-- [Notebook Guide](#notebook-guide)
-- [Tips](#tips)
+- **Dataset-source comparison** — trains matching LoRA settings on web-crawled images, real photos, and AI-generated images.
+- **Rank and alpha ablations** — compares LoRA capacity settings across fixed prompts and checkpoint intervals.
+- **Captioned imagefolder datasets** — stores each training split with Hugging Face `imagefolder` metadata in `metadata.csv`.
+- **Before-after generation grids** — renders base-model and LoRA outputs side by side for visual evaluation.
+- **Reusable training utilities** — centralizes loading, preprocessing, training, inference, and grid export in `experiment_utils.py`.
+- **Report-ready artifacts** — saves labeled figures, summary CSVs, checkpoints, and final adapter weights.
 
 ---
 
-## Features
+## 🚀 Quick Start
 
-- Fine-tunes LoRA adapters on Stable Diffusion v1.5 using three types of custom datasets
-- Compares **web-crawled images**, **real photographs**, and **AI-generated images** as training sources
-- Uses Hugging Face `imagefolder` format with captions stored in `metadata.csv`
-- Generates side-by-side before/after image grids for visual evaluation
-- Runs ablation experiments over LoRA `rank` and `alpha` hyperparameters
-- Exports labeled comparison images and summary CSV files for reporting
-
----
-
-## Quick Start
-
-**1. Create the conda environment**
+### 1. Environment setup
 
 ```bash
+git clone https://github.com/192cm/Customizing-LoRA-for-Diffusion-Models.git
+cd Customizing-LoRA-for-Diffusion-Models
 conda env create -f environment.yml
 conda activate genai-assignment2
 python -m ipykernel install --user --name genai-assignment2 --display-name "genai-assignment2"
 ```
 
-**2. Run the notebooks in order**
+### 2. Credentials / config
 
+```bash
+python -c "from diffusers import StableDiffusionPipeline; StableDiffusionPipeline.from_pretrained('runwayml/stable-diffusion-v1-5')"
 ```
-00 → 01 → 02 (rank & alpha) → 03 → 04
-```
 
-See [How to Run](#how-to-run) for details on each notebook.
+Hugging Face provides a free account tier if model access or cached downloads require authentication in your environment.
 
----
+### 3. Run
 
-## Repository Structure
-
-```
-.
-├── 00_Customizing_LoRA.ipynb       # End-to-end single LoRA workflow
-├── 01_dataset_training.ipynb       # Train on each dataset, generate comparisons
-├── 02_ablation_rank.ipynb          # Rank ablation experiment
-├── 02_ablation_alpha.ipynb         # Alpha ablation experiment
-├── 03_test.ipynb                   # Additional inference and checkpoint testing
-├── 04_monitor.ipynb                # Artifact and progress monitoring
-├── experiment_utils.py             # Shared config and utilities
-├── environment.yml
-├── data/
-│   ├── web_crawled_custom_dataset/train/
-│   ├── real_custom_dataset/train/
-│   └── generated_custom_dataset/train/
-├── lora_experiments/
-│   ├── dataset_training/
-│   ├── comparisons/
-│   ├── ablation/
-│   ├── experiment_summary_rank.csv
-│   └── experiment_summary_alpha.csv
-├── report_assets/
-└── sd_lora/
-    ├── pytorch_lora_weights.safetensors
-    ├── loss_log.csv
-    └── checkpoint-*/
+```bash
+jupyter notebook 00_Customizing_LoRA.ipynb
 ```
 
 ---
 
-## Dataset Format
+## 📖 Usage
 
-Each dataset follows the Hugging Face `imagefolder` layout:
+### Notebooks
 
+Run the notebooks in order when reproducing the full experiment.
+
+| Step | Notebook | Output |
+|------|----------|--------|
+| 1 | `00_Customizing_LoRA.ipynb` | End-to-end LoRA workflow validation |
+| 2 | `01_dataset_training.ipynb` | Dataset-wise LoRA adapters and before-after grids |
+| 3 | `02_ablation_rank.ipynb` | Rank `8` and `16` comparison artifacts |
+| 4 | `02_ablation_alpha.ipynb` | Alpha `8` and `16` comparison artifacts |
+| 5 | `03_test.ipynb` | Additional inference and checkpoint tests |
+| 6 | `04_monitor.ipynb` | Experiment-state and artifact inspection |
+
+```bash
+jupyter notebook
 ```
+
+> Use the `genai-assignment2` kernel before running cells that import `diffusers`, `accelerate`, or `torch`.
+
+### Programmatic
+
+Import the shared helpers when running a smaller training or inference pass from a Python script.
+
+```python
+from experiment_utils import DATASET_CONFIGS, run_lora_training_experiment
+
+dataset_config = DATASET_CONFIGS[0]
+```
+
+### Dataset Format
+
+Each dataset follows the Hugging Face `imagefolder` layout.
+
+```text
 data/{dataset_name}/
 └── train/
     ├── metadata.csv
@@ -122,33 +98,81 @@ data/{dataset_name}/
     └── image_02.png
 ```
 
-`metadata.csv` schema:
+`metadata.csv` uses one row per image.
 
 ```csv
 file_name,caption
 image_01.jpg,a sks building in pixel art style
 ```
 
-Datasets used in this project:
-
-| Name | Folder | Images | Base Prompt | Style Token |
-|------|--------|-------:|-------------|-------------|
-| `web_crawled` | `./data/web_crawled_custom_dataset` | 50 | `a building` | `sks` |
-| `real` | `./data/real_custom_dataset` | 10 | `a city street in winter` | `sks` |
-| `generated` | `./data/generated_custom_dataset` | 20 | `a house in a flower field` | `sks` |
-
-> Dataset paths and prompts are defined in `experiment_utils.py`.
+| Dataset | Folder | Images | Prompt | Style token |
+|---------|--------|-------:|--------|-------------|
+| `web_crawled` | `data/web_crawled_custom_dataset` | 50 | `a building` | `sks` |
+| `real` | `data/real_custom_dataset` | 10 | `a city street in winter` | `sks` |
+| `generated` | `data/generated_custom_dataset` | 20 | `a house in a flower field` | `sks` |
 
 ---
 
-## Training Configuration
+## 🏗️ Architecture
 
-All training and inference settings are centralized in `experiment_utils.py`.
+```
+Customizing-LoRA-for-Diffusion-Models/
+├── 00_Customizing_LoRA.ipynb        # baseline workflow
+├── 01_dataset_training.ipynb        # dataset comparison
+├── 02_ablation_rank.ipynb           # rank experiments
+├── 02_ablation_alpha.ipynb          # alpha experiments
+├── 03_test.ipynb                    # inference checks
+├── 04_monitor.ipynb                 # artifact inspection
+├── experiment_utils.py              # training utilities
+├── environment.yml                  # conda environment
+├── data/                            # imagefolder datasets
+├── lora_experiments/                # checkpoints and grids
+├── report_assets/                   # labeled report figures
+└── sd_lora/                         # single-run adapter output
+```
 
-| Setting | Value |
-|---------|-------|
+```
+Custom images
+   │  image files and captions
+   ▼
+data/*/train ──▶ Hugging Face imagefolder dataset
+                    │  tensors and tokenized captions
+                    ▼
+             experiment_utils.py ──▶ Stable Diffusion v1.5
+                    │  LoRA state dicts and checkpoints
+                    ▼
+          lora_experiments/* ──▶ comparison grids and CSV summaries
+```
+
+> The repository keeps experiment orchestration in notebooks while sharing training and inference behavior through `experiment_utils.py`.
+
+---
+
+## 🤖 Experiment Results
+
+### Dataset Samples
+
+![Dataset samples](report_assets/figure3_dataset_samples.png)
+
+### Before / After LoRA Fine-tuning
+
+| Web-crawled | Real photos | AI-generated |
+|:-----------:|:-----------:|:------------:|
+| ![Web-crawled before after](report_assets/web_crawled_before_after_labeled.png) | ![Real before after](report_assets/real_before_after_labeled.png) | ![Generated before after](report_assets/generated_before_after_labeled.png) |
+
+### Ablation Study
+
+| LoRA rank | LoRA alpha |
+|:---------:|:----------:|
+| ![Rank comparison](report_assets/rank_comparison_labeled.png) | ![Alpha comparison](report_assets/alpha_comparison_labeled.png) |
+
+### Training Settings
+
+| Key | Value |
+|-----|-------|
 | Base model | `runwayml/stable-diffusion-v1-5` |
 | VAE | `stabilityai/sd-vae-ft-mse` |
+| Variant | `fp16` |
 | Seed | `2015` |
 | Resolution | `512` |
 | Batch size | `8` |
@@ -157,85 +181,38 @@ All training and inference settings are centralized in `experiment_utils.py`.
 | Learning rate | `1e-4` |
 | Default LoRA rank | `4` |
 | Default LoRA alpha | `4` |
-| LoRA target modules | `to_k`, `to_q`, `to_v`, `to_out.0` |
+| Target modules | `to_k`, `to_q`, `to_v`, `to_out.0` |
 
-Trained weights are saved as `pytorch_lora_weights.safetensors` in each experiment directory.
+### Output Paths
 
----
-
-## How to Run
-
-Run notebooks in the order listed below.
-
-| Step | Notebook | What it does |
-|------|----------|--------------|
-| 1 | `00_Customizing_LoRA.ipynb` | Validate end-to-end workflow: data prep, captioning, metadata, training, inference |
-| 2 | `01_dataset_training.ipynb` | Train `rank4_alpha4` LoRA on all three datasets; generate before/after grids |
-| 3 | `02_ablation_rank.ipynb` | Compare rank `8` vs `16` on the web-crawled dataset |
-| 4 | `02_ablation_alpha.ipynb` | Compare alpha `8` vs `16` on the web-crawled dataset |
-| 5 | `03_test.ipynb` | Load trained weights, test prompts, export additional checkpoint results |
-| 6 | `04_monitor.ipynb` | Inspect experiment state and generated artifacts |
+| Path | Contents |
+|------|----------|
+| `lora_experiments/dataset_training/*/rank4_alpha4/` | Dataset comparison adapters and checkpoints |
+| `lora_experiments/ablation/rank/` | Rank ablation adapters and checkpoints |
+| `lora_experiments/ablation/alpha/` | Alpha ablation adapters and checkpoints |
+| `lora_experiments/comparisons/` | Raw before-after comparison grids |
+| `lora_experiments/experiment_summary_rank.csv` | Rank experiment summary |
+| `lora_experiments/experiment_summary_alpha.csv` | Alpha experiment summary |
+| `report_assets/` | Labeled figures for reports |
 
 ---
 
-## Outputs
+## 📦 Dependencies
 
-**Default dataset training**
-
-```
-lora_experiments/dataset_training/
-├── web_crawled/rank4_alpha4/
-├── real/rank4_alpha4/
-└── generated/rank4_alpha4/
-```
-
-**Before/after comparison images**
-
-```
-lora_experiments/comparisons/
-├── web_crawled_before_after.png
-├── real_before_after.png
-└── generated_before_after.png
-```
-
-**Ablation experiments**
-
-```
-lora_experiments/ablation/
-├── rank/
-│   ├── rank8_alpha4/
-│   └── rank16_alpha4/
-├── alpha/
-│   ├── rank4_alpha8/
-│   └── rank4_alpha16/
-├── rank_comparison.png
-├── alpha_comparison.png
-└── all_checkpoints/
-```
-
-**Summary CSVs**
-
-- `lora_experiments/experiment_summary_rank.csv`
-- `lora_experiments/experiment_summary_alpha.csv`
+| Package | Version | Role |
+|---------|---------|------|
+| `python` | `3.10` | Runtime |
+| `torch` | `2.1.2+cu121` | Training and inference backend |
+| `torchvision` | `0.16.2+cu121` | Image transforms |
+| `diffusers` | `0.26.0` | Stable Diffusion pipeline and LoRA loading |
+| `accelerate` | `0.26.1` | Training orchestration |
+| `peft` | `0.7.1` | LoRA configuration and state dict handling |
+| `datasets` | `2.16.1` | `imagefolder` dataset loading |
+| `transformers` | `4.37.0` | Tokenizer and text encoder loading |
+| `safetensors` | `0.4.2` | Adapter weight serialization |
 
 ---
 
-## Notebook Guide
+## 📄 License
 
-| Notebook | Purpose |
-|----------|---------|
-| `00_Customizing_LoRA.ipynb` | End-to-end single LoRA workflow: data setup, captioning, metadata, training, and inference |
-| `01_dataset_training.ipynb` | Dataset-wise LoRA training and before/after result generation |
-| `02_ablation_rank.ipynb` | LoRA rank ablation experiment |
-| `02_ablation_alpha.ipynb` | LoRA alpha ablation experiment |
-| `03_test.ipynb` | Additional inference tests with trained LoRA weights and checkpoints |
-| `04_monitor.ipynb` | Experiment artifact and progress monitoring |
-
----
-
-## Tips
-
-- **Limited GPU memory** — reduce `train_batch_size` or `max_train_steps`.
-- **Outputs look too close to the base model** — verify that all captions include the `sks` style token.
-- **LoRA overfits** — compare earlier checkpoints (`checkpoint-500`, `checkpoint-1000`, `checkpoint-1500`).
-- **For reports** — use the labeled assets in `report_assets/` rather than the raw grids in `lora_experiments/`.
+No license file is included in this repository.
