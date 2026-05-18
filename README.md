@@ -16,6 +16,8 @@
 
 ---
 
+<a id="features"></a>
+
 ## ✨ Features
 
 - **Dataset-source comparison** — trains matching LoRA settings on web-crawled images, real photos, and AI-generated images.
@@ -26,6 +28,8 @@
 - **Report-ready artifacts** — saves labeled figures, summary CSVs, checkpoints, and final adapter weights.
 
 ---
+
+<a id="quick-start"></a>
 
 ## 🚀 Quick Start
 
@@ -54,6 +58,8 @@ jupyter notebook 00_Customizing_LoRA.ipynb
 ```
 
 ---
+
+<a id="usage"></a>
 
 ## 📖 Usage
 
@@ -113,6 +119,8 @@ image_01.jpg,a sks building in pixel art style
 
 ---
 
+<a id="architecture"></a>
+
 ## 🏗️ Architecture
 
 ```
@@ -147,6 +155,8 @@ data/*/train ──▶ Hugging Face imagefolder dataset
 > The repository keeps experiment orchestration in notebooks while sharing training and inference behavior through `experiment_utils.py`.
 
 ---
+
+<a id="experiment-results"></a>
 
 ## 🤖 Experiment Results
 
@@ -197,6 +207,8 @@ data/*/train ──▶ Hugging Face imagefolder dataset
 
 ---
 
+<a id="dependencies"></a>
+
 ## 📦 Dependencies
 
 | Package | Version | Role |
@@ -212,6 +224,8 @@ data/*/train ──▶ Hugging Face imagefolder dataset
 | `safetensors` | `0.4.2` | Adapter weight serialization |
 
 ---
+
+<a id="license"></a>
 
 ## 📄 License
 
